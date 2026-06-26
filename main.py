@@ -1,7 +1,9 @@
 import youtube_video_downloader
+import qr_code_generator
 
 print("The tools:")
 print(" 1-Youtube Video Downloader")
+print(" 2-QR Code Generator")
 tool_choice = input("Which tool would you like to use?: ")
 
 if tool_choice == "1":
@@ -11,10 +13,8 @@ if tool_choice == "1":
     print(" 3-Download the video with SPECIFIC resolution")
     print(" 4-Download the AUDIO of the video")
 
-    # KULLANICIDAN CEVABI BURADA ALIYORUZ
     download_choice = input("How do you want to download the video?: ")
 
-    # Kullanıcı geçerli bir seçim yaptıysa linki SADECE BİR KERE soruyoruz
     if download_choice in ["1", "2", "3", "4"]:
         link = input("\nEnter the link of the video: ")
 
@@ -30,6 +30,13 @@ if tool_choice == "1":
             youtube_video_downloader.download_sound_of_video(link)
     else:
         print("Invalid choice for download options.")
+elif tool_choice == "2":
+    url = input("Enter a URL to generate a QR code for it: ")
+    file_name = input("Enter a name for your QR code file (without .png): ")
 
+    if file_name.strip() == "":
+        qr_code_generator.qr_generator(url)
+    else:
+        qr_code_generator.qr_generator(url, file_name)
 else:
     print("Invalid choice for tools.")
