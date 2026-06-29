@@ -3,18 +3,20 @@ import youtube_video_downloader
 import qr_code_generator
 import background_remover
 import pdf_to_docx
+import adding_watermark
 
 def main():
     while True:
-        print("--- Toolkit Menu ---")
+        print("\n--- Toolkit Menu ---")
         print(" 1 - Youtube Video Downloader")
         print(" 2 - QR Code Generator")
         print(" 3 - Background Remover of an image")
         print(" 4 - Convert pdf to word file")
-        print(" 5 - Exit")
+        print(" 5 - Add watermark to your image")
+        print(" 6 - Exit")
 
         try:
-            tool_choice = input("Which tool would you like to use? (1-5): ")
+            tool_choice = input("Which tool would you like to use? (1-6): ")
         except (KeyboardInterrupt, EOFError):
             print("\nExiting toolkit. Goodbye!")
             break
@@ -68,11 +70,28 @@ def main():
                 print(f"Error: File does not exist at '{input_path}'\n")
 
         elif tool_choice == "5":
+            input_path = input("\nEnter the path of the base image: ")
+            print(" 1 - Adding Watermark as a text")
+            print(" 2 - Adding Watermark as an image")
+            selection = input("Which option do you want to use: ")
+
+            if selection == "1":
+                watermark_text = input("Enter your text to add as a watermark: ")
+                color = input("Enter the color of your watermark text (Only black or white): ").strip().lower()
+                adding_watermark.adding_watermark_as_a_text(input_path, watermark_text, color)
+            elif selection == "2":
+                watermark_image = input("Enter the image path you want to use as a watermark: ")
+                adding_watermark.adding_watermark_as_a_image(input_path, watermark_image)
+            else:
+                print("Invalid choice.\n")
+
+        elif tool_choice == "6":
             print("Exiting toolkit. Goodbye!")
             break
 
         else:
             print("Invalid choice. Please select a valid option from the menu.\n")
+
 
 if __name__ == "__main__":
     try:
