@@ -5,6 +5,7 @@ import background_remover
 import pdf_to_docx
 import adding_watermark
 import jpg_to_pdf
+import pdf_to_jpg
 
 
 def main():
@@ -16,10 +17,11 @@ def main():
         print(" 4 - Convert pdf to word file")
         print(" 5 - Add watermark to your image")
         print(" 6 - Convert a jpg to pdf file")
-        print(" 7 - Exit")
+        print(" 7 - Convert a pdf to jpg images")
+        print(" 8 - Exit")
 
         try:
-            tool_choice = input("Which tool would you like to use? (1-7): ").strip()
+            tool_choice = input("Which tool would you like to use? (1-8): ").strip()
         except (KeyboardInterrupt, EOFError):
             print("\nExiting toolkit. Goodbye!")
             break
@@ -77,7 +79,6 @@ def main():
             case "5":
                 input_path = input("\nEnter the path of the base image: ").strip()
 
-                # Added safety check for the base image
                 if os.path.exists(input_path):
                     print(" 1 - Adding Watermark as a text")
                     print(" 2 - Adding Watermark as an image")
@@ -91,7 +92,6 @@ def main():
                             adding_watermark.adding_watermark_as_a_text(input_path, watermark_text, color)
                         case "2":
                             watermark_image = input("Enter the image path you want to use as a watermark: ").strip()
-                            # Added safety check for the watermark image
                             if os.path.exists(watermark_image):
                                 adding_watermark.adding_watermark_as_a_image(input_path, watermark_image)
                             else:
@@ -109,6 +109,13 @@ def main():
                     print(f"Error: File does not exist at '{input_path}'\n")
 
             case "7":
+                input_path = input("\nEnter the path of the pdf file you want to convert to images: ").strip()
+                if os.path.exists(input_path):
+                    pdf_to_jpg.convert_pdf_to_jpg(input_path)
+                else:
+                    print(f"Error: File does not exist at '{input_path}'\n")
+
+            case "8":
                 print("Exiting toolkit. Goodbye!")
                 break
 
